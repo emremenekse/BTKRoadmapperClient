@@ -1,0 +1,53 @@
+<div class="modal" *ngIf="isVisible" tabindex="-1" id="mapModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Harita Belirle</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="currentStep === 1">
+            <p>Adım 1: Konum Seçin</p>
+            <input type="text" class="form-control" placeholder="Şehir veya Bölge Girin" />
+          </div>
+  
+          <div *ngIf="currentStep === 2">
+            <p>Adım 2: Tarih Belirleyin</p>
+            <input type="date" class="form-control" />
+          </div>
+  
+          <div *ngIf="currentStep === 3">
+            <p>Adım 3: Onayla</p>
+            <p>Seçimlerinizi gözden geçirin ve onaylayın.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button 
+            *ngIf="currentStep > 1" 
+            type="button" 
+            class="btn btn-secondary" 
+            (click)="previousStep()"
+          >
+            Geri
+          </button>
+          <button 
+            *ngIf="currentStep < 3" 
+            type="button" 
+            class="btn btn-primary" 
+            (click)="nextStep()"
+          >
+            İleri
+          </button>
+          <button 
+            *ngIf="currentStep === 3" 
+            type="button" 
+            class="btn btn-success" 
+            (click)="closeModal()"
+          >
+            Onayla
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

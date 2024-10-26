@@ -1,0 +1,11 @@
+<div class="overflow-hidden hover:shadow-lg transition-shadow rounded-lg border">
+    <img [src]="image" [alt]="title" class="h-48 w-full object-cover" />
+    <div class="p-4">
+      <h3 class="font-semibold text-lg mb-2">{{ title }}</h3>
+      <div class="flex items-center justify-between">
+        <span *ngIf="isFree" class="bg-green-100 text-green-800 px-2 py-1 rounded">Ücretsiz</span>
+        <span class="text-sm text-gray-500">{{ views }} görüntülenme</span>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,40 @@
+<header class="border-b">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <h1 class="text-2xl font-bold text-primary">BTK Akademi</h1>
+  
+        <div class="relative hidden md:block">
+          <input 
+            type="text" 
+            placeholder="Eğitim ara..." 
+            class="w-[300px] pl-10 pr-4 border rounded"
+          />
+          <i 
+          class="bi bi-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+        ></i>
+        </div>
+        <button 
+  class="btn btn-outline-secondary flex items-center gap-2 relative"
+  (click)="openModal()"
+>
+  <i class="bi bi-geo-alt"></i>
+  Yol Haritanı Belirle
+
+  <!-- Yeni Etiketi -->
+  <span 
+    class="absolute -top-2 -right-8 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-full animate-bounce"
+  >
+    Yeni
+  </span>
+</button>
+
+      </div>
+  
+      <div class="flex items-center gap-4">
+        <button class="btn btn-outline-primary">Giriş Yap</button>
+        <button class="btn btn-primary">Kayıt Ol</button>
+      </div>
+    </div>
+    <app-map-modal [isVisible]="isModalVisible"></app-map-modal>
+  </header>
+  
