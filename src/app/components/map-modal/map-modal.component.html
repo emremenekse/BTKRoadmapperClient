@@ -1,53 +1,106 @@
 <div class="modal" *ngIf="isVisible" tabindex="-1" id="mapModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Harita Belirle</h5>
-          <button type="button" class="btn-close" (click)="closeModal()"></button>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Harita Belirle</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="currentStep === 1">
+          <p>Adım 1: Email Girin</p>
+          <input 
+            type="email" 
+            class="form-control" 
+            placeholder="Email" 
+            [(ngModel)]="roadmapDTO.email" 
+            (change)="logEmail()" />
         </div>
-        <div class="modal-body">
-          <div *ngIf="currentStep === 1">
-            <p>Adım 1: Konum Seçin</p>
-            <input type="text" class="form-control" placeholder="Şehir veya Bölge Girin" />
-          </div>
-  
-          <div *ngIf="currentStep === 2">
-            <p>Adım 2: Tarih Belirleyin</p>
-            <input type="date" class="form-control" />
-          </div>
-  
-          <div *ngIf="currentStep === 3">
-            <p>Adım 3: Onayla</p>
-            <p>Seçimlerinizi gözden geçirin ve onaylayın.</p>
-          </div>
+
+        <div *ngIf="currentStep === 2">
+          <p>Adım 2: İsim ve Rol Girin</p>
+          <input 
+            type="text" 
+            class="form-control" 
+            placeholder="İsim" 
+            [(ngModel)]="roadmapDTO.name" />
+          <input 
+            type="text" 
+            class="form-control mt-2" 
+            placeholder="Rol" 
+            [(ngModel)]="roadmapDTO.role" />
         </div>
-        <div class="modal-footer">
-          <button 
-            *ngIf="currentStep > 1" 
-            type="button" 
-            class="btn btn-secondary" 
-            (click)="previousStep()"
-          >
-            Geri
-          </button>
-          <button 
-            *ngIf="currentStep < 3" 
-            type="button" 
-            class="btn btn-primary" 
-            (click)="nextStep()"
-          >
-            İleri
-          </button>
-          <button 
-            *ngIf="currentStep === 3" 
-            type="button" 
-            class="btn btn-success" 
-            (click)="closeModal()"
-          >
-            Onayla
-          </button>
+
+        <div *ngIf="currentStep === 3">
+          <p>Adım 3: Eğitim Seviyesi Seçin</p>
+          <select class="form-control" [(ngModel)]="roadmapDTO.educationLevel">
+            <option *ngFor="let level of educationLevels" [value]="level.value">
+              {{ level.label }}
+            </option>
+          </select>
         </div>
+
+        <div *ngIf="currentStep === 4">
+          <p>Adım 4: Günlük İlgilenebileceğiniz Saat</p>
+          <input 
+            type="number" 
+            class="form-control" 
+            placeholder="Saat" 
+            [(ngModel)]="roadmapDTO.dailyAvailableTime" />
+        </div>
+
+        <div *ngIf="currentStep === 5">
+          <p>Adım 5: Hedef Alanınızı Seçin</p>
+          <select class="form-control" [(ngModel)]="roadmapDTO.targetField">
+            <option *ngFor="let target of targetFields" [value]="target.value">
+              {{ target.label }}
+            </option>
+          </select>
+        </div>
+
+        <div *ngIf="currentStep === 6">
+          <p>Adım 6: Hedef Alanınızdaki Bilgi Seviyeniz</p>
+          <select class="form-control" [(ngModel)]="roadmapDTO.interestedFieldSkillLevel">
+            <option *ngFor="let skill of skillLevels" [value]="skill.value">
+              {{ skill.label }}
+            </option>
+          </select>
+        </div>
+
+        <div *ngIf="currentStep === 7">
+          <p>Adım 7: İlgi Alanınıza Dair Kısa Bilgi</p>
+          <textarea 
+            class="form-control" 
+            [(ngModel)]="roadmapDTO.interestedFields" 
+            maxlength="200"
+            placeholder="Kısa bir bilgi yazın..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button 
+          *ngIf="currentStep > 1" 
+          type="button" 
+          class="btn btn-secondary" 
+          (click)="previousStep()"
+        >
+          Geri
+        </button>
+        <button 
+          *ngIf="currentStep < 7" 
+          type="button" 
+          class="btn btn-primary" 
+          (click)="nextStep()"
+        >
+          İleri
+        </button>
+        <button 
+          *ngIf="currentStep === 7" 
+          type="button" 
+          class="btn btn-success" 
+          (click)="submitData()"
+        >
+          Onayla
+        </button>
       </div>
     </div>
   </div>
-  
+</div>

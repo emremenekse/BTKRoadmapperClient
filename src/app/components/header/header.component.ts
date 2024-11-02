@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import {  Component } from '@angular/core';
 import { MapModalComponent } from '../map-modal/map-modal.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { MapModalComponent } from '../map-modal/map-modal.component';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  isModalVisible: boolean = false;  // Modalın görünürlük durumu
+  isModalVisible: boolean = false;
 
   openModal() {
     this.isModalVisible = true;
