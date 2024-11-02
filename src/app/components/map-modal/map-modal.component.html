@@ -13,8 +13,10 @@
             class="form-control" 
             placeholder="Email" 
             [(ngModel)]="roadmapDTO.email" 
-            (change)="logEmail()" />
+            (change)="checkEmail()"
+            [readonly]="readonlyEmail" />
         </div>
+        
 
         <div *ngIf="currentStep === 2">
           <p>Adım 2: İsim ve Rol Girin</p>
@@ -22,12 +24,23 @@
             type="text" 
             class="form-control" 
             placeholder="İsim" 
-            [(ngModel)]="roadmapDTO.name" />
+            [(ngModel)]="roadmapDTO.name" 
+            required
+            #nameInput="ngModel" />
+          <div *ngIf="nameInput.invalid && nameInput.touched" class="text-danger">
+            İsim boş bırakılamaz.
+          </div>
+          
           <input 
             type="text" 
             class="form-control mt-2" 
             placeholder="Rol" 
-            [(ngModel)]="roadmapDTO.role" />
+            [(ngModel)]="roadmapDTO.role" 
+            required
+            #roleInput="ngModel" />
+          <div *ngIf="roleInput.invalid && roleInput.touched" class="text-danger">
+            Rol boş bırakılamaz.
+          </div>
         </div>
 
         <div *ngIf="currentStep === 3">
@@ -45,7 +58,9 @@
             type="number" 
             class="form-control" 
             placeholder="Saat" 
-            [(ngModel)]="roadmapDTO.dailyAvailableTime" />
+            [(ngModel)]="roadmapDTO.dailyAvailableTime" 
+            min="1"
+            (change)="validateDailyAvailableTime()" />
         </div>
 
         <div *ngIf="currentStep === 5">
@@ -72,8 +87,14 @@
             class="form-control" 
             [(ngModel)]="roadmapDTO.interestedFields" 
             maxlength="200"
+            required
+            #interestInput="ngModel"
             placeholder="Kısa bir bilgi yazın..."></textarea>
+          <div *ngIf="interestInput.invalid && interestInput.touched" class="text-danger">
+            İlgi alanı bilgisi boş bırakılamaz.
+          </div>
         </div>
+
       </div>
       <div class="modal-footer">
         <button 
@@ -100,6 +121,29 @@
         >
           Onayla
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showRoadmapPopup" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white rounded-lg shadow-lg max-w-lg w-full h-4/5 overflow-y-auto p-4"> <!-- Daha küçük boyut ve kaydırma -->
+    <div class="text-center font-semibold text-gray-700 mb-4">
+      Tahmini Bitiş Süresi: {{ estimatedCompletionTime}} Gün
+    </div>
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-bold">Yol Haritanız</h3>
+      <button class="btn-close" (click)="closeRoadMapModal()"></button>
+    </div>
+    <div class="roadmap-list space-y-4">
+      <div *ngFor="let course of roadmapData" class="p-4 border rounded-lg shadow-sm">
+        <h4 class="text-base font-semibold">{{ course.courseName }} (Sıra: {{ course.recommendedOrder }})</h4>
+        <p class="text-gray-600">{{ course.description }}</p>
+        <ul class="mt-2 space-y-2">
+          <li *ngFor="let module of course.modules" class="flex items-center">
+            <span class="font-medium">{{ module.title }}</span>
+            <span class="ml-auto text-sm text-gray-500">{{ module.lessonCount }} Ders</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
