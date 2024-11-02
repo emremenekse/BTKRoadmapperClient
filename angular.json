@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "BTKRoadmapperClient": {
+    "btkroadmapper-client": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -66,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "BTKRoadmapperClient:build:production"
+              "buildTarget": "btkroadmapper-client:build:production"
             },
             "development": {
-              "buildTarget": "BTKRoadmapperClient:build:development"
+              "buildTarget": "btkroadmapper-client:build:development"
             }
           },
           "defaultConfiguration": "development"
