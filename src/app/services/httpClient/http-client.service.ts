@@ -9,7 +9,7 @@ import { catchError, Observable } from 'rxjs';
 export class HttpClientService {
 
   private baseUrl: string = 'http://localhost';
-  private baseUrlProd: string = 'https://api.btkakademiroadmapper.com.tr';
+  private baseUrlProd: string = 'https://btkakademiroadmapper.com.tr';
   private baseApi: string = 'api';
   private basePort: string = "5054";
   private unPopularIPAddress: string = "http://34.163.142.183"
@@ -21,21 +21,21 @@ export class HttpClientService {
   // }
 
   //staging
-  private url(requestParameters: Partial<RequestParameters>): string {
-    return `${this.unPopularIPAddress}/${this.baseApi}/${requestParameters.controller}${requestParameters.action ? `/${requestParameters.action}` : ''}`;
-  }
+  // private url(requestParameters: Partial<RequestParameters>): string {
+  //   return `${this.unPopularIPAddress}/${this.baseApi}/${requestParameters.controller}${requestParameters.action ? `/${requestParameters.action}` : ''}`;
+  // }
 
 
   //prod-KUBE
-  // private url(requestParameters: Partial<RequestParameters>): string {
-  //   return `${this.baseUrlProd}/${this.baseApi}/${requestParameters.controller}${requestParameters.action ? `/${requestParameters.action}` : ''}`;
-  // }
+  private url(requestParameters: Partial<RequestParameters>): string {
+    return `${this.baseUrlProd}/${this.baseApi}/${requestParameters.controller}${requestParameters.action ? `/${requestParameters.action}` : ''}`;
+  }
 
   get<T>(requestParameters: Partial<RequestParameters>, id?: string): Observable<HttpResponse<T>> {
     let url: string = "";
     if (requestParameters.fullEndpoint) {
-      //requestParameters.fullEndpoint = requestParameters.fullEndpoint.replace('http://localhost:30000', 'https://api.btkakademiroadmapper.com.tr');
-      requestParameters.fullEndpoint = requestParameters.fullEndpoint.replace('http://localhost:30000', 'http://34.163.142.183');
+      requestParameters.fullEndpoint = requestParameters.fullEndpoint.replace('http://localhost:30000', 'https://btkakademiroadmapper.com.tr');
+      //requestParameters.fullEndpoint = requestParameters.fullEndpoint.replace('http://localhost:30000', 'http://34.163.142.183');
       //requestParameters.fullEndpoint = requestParameters.fullEndpoint.replace('http://localhost:30000', 'http://localhost');
 
       url = requestParameters.fullEndpoint;
@@ -56,8 +56,8 @@ export class HttpClientService {
   post<T>(requestParameters: Partial<RequestParameters>, body: any | null): Observable<HttpResponse<T>> {
     let url: string = "";
     if (requestParameters.fullEndpoint) {
-      //requestParameters.fullEndpoint = requestParameters.fullEndpoint.replace('http://localhost:30000', 'https://api.btkakademiroadmapper.com.tr');
-      requestParameters.fullEndpoint = requestParameters.fullEndpoint.replace('http://localhost:30000', 'http://34.163.142.183');
+      requestParameters.fullEndpoint = requestParameters.fullEndpoint.replace('http://localhost:30000', 'https://api.btkakademiroadmapper.com.tr');
+      //requestParameters.fullEndpoint = requestParameters.fullEndpoint.replace('http://localhost:30000', 'http://34.163.142.183');
       //requestParameters.fullEndpoint = requestParameters.fullEndpoint.replace('http://localhost:30000', 'http://localhost');
       url = requestParameters.fullEndpoint;
     } else {
